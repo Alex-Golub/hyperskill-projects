@@ -1,8 +1,8 @@
 package search;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by ag on 04-Jun-20 9:25 PM
@@ -16,13 +16,11 @@ public class PeopleSearchEngine {
     }
 
     public void search(String query) {
-        List<Person> foundData = new ArrayList<>();
-
-        for (Person p : this.personDB.getPersonList()) {
-            if (p.toString().toLowerCase().contains(query)) {
-                foundData.add(p);
-            }
-        }
+        List<Person> foundData = this.personDB
+                .getPersonList()
+                .stream()
+                .filter(p -> p.toString().toLowerCase().contains(query))
+                .collect(Collectors.toList());
 
         printFoundData(foundData);
     }

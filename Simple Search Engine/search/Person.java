@@ -23,22 +23,9 @@ public class Person {
         this.email = email;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
     @Override
     public String toString() {
-        return String
-                .format("%s %s %s", getFirstName(), getLastName(), getEmail())
+        return String.format("%s %s %s", firstName, lastName, email)
                 .trim(); // if email is empty trim to accommodate first and last name only
     }
 }
