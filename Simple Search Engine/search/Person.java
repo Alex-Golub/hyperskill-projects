@@ -1,26 +1,23 @@
 package search;
 
-/**
- * Created by ag on 04-Jun-20 8:40 PM
- */
+/** Created by ag on 04-Jun-20 8:40 PM */
 public class Person {
 
-    private final String firstName;
-    private final String lastName;
-    private final String email; // optional
+    private String firstName;
+    private String lastName;
+    private String email; // optional
 
-    public Person(String firstName) {
-        this(firstName, "", "");
-    }
+    public Person(String[] tokens) {
+        if (tokens.length <= 0 || tokens.length > 3)
+            throw new IllegalArgumentException("Data can have 1-3 words, first name, last name and email");
 
-    public Person(String firstName, String lastName) {
-        this(firstName, lastName, "");
-    }
+        this.email = this.firstName = this.lastName = "";
 
-    public Person(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+        switch (tokens.length) {
+            case 3: this.email = tokens[2];
+            case 2: this.lastName = tokens[1];
+            case 1: this.firstName = tokens[0];
+        }
     }
 
     @Override

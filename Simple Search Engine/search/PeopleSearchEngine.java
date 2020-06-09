@@ -1,12 +1,9 @@
 package search;
 
-import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
-/**
- * Created by ag on 04-Jun-20 9:25 PM
- */
+/** Created by ag on 04-Jun-20 9:25 PM */
 public class PeopleSearchEngine {
 
     private final PersonDB personDB;
@@ -16,22 +13,18 @@ public class PeopleSearchEngine {
     }
 
     public void search(String query) {
-        List<Person> foundData = this.personDB
-                .getPersonList()
-                .stream()
-                .filter(p -> p.toString().toLowerCase().contains(query))
-                .collect(Collectors.toList());
-
-        printFoundData(foundData);
+        printFoundData(this.personDB.getInvertedIndex()
+                .getOrDefault(query, Collections.emptyList()));
     }
 
-    private void printFoundData(Collection<Person> people) {
-        if (people.isEmpty()) {
-            System.out.println("\nNo matching people found.");
+    private void printFoundData(List<Integer> list) {
+        if (list.isEmpty()) {
+            System.out.println("No matching people found.");
             return;
         }
 
-        people.forEach(System.out::println);
+        System.out.println(list.size() + " persons found:");
+        list.forEach(idx -> System.out.println(this.personDB.getPersonList().get(idx)));
     }
 
 }
