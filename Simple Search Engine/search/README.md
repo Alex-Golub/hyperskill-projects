@@ -7,7 +7,7 @@ Three searching strategies:
 2. ANY - print lines containing at least one word from the query
 3. NONE - print lines that do not contain words from the query at all
 <p align="center">
-<a href="https://ibb.co/4PV6nfD"><img src="https://i.ibb.co/6gW37Zp/byt-Zl6p-Kh9.gif" alt="byt-Zl6p-Kh9" border="0" /></a>
+![demo](https://media.giphy.com/media/YSrIABEAchGtsYechA/giphy.gif)
 </p>
 <p align="center">
 <img src="https://img.shields.io/badge/Completed%20stages-6/6-green.svg" />
