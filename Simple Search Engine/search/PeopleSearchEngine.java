@@ -1,30 +1,21 @@
 package search;
 
-import java.util.Collections;
-import java.util.List;
-
 /** Created by ag on 04-Jun-20 9:25 PM */
 public class PeopleSearchEngine {
 
-    private final PersonDB personDB;
+  private final PersonDB personDB;
+  private SearchStrategy searchStrategy;
 
-    public PeopleSearchEngine(PersonDB personDB) {
-        this.personDB = personDB;
-    }
+  public PeopleSearchEngine(PersonDB personDB) {
+    this.personDB = personDB;
+  }
 
-    public void search(String query) {
-        printFoundData(this.personDB.getInvertedIndex()
-                .getOrDefault(query, Collections.emptyList()));
-    }
+  public void setSearchStrategy(SearchStrategy searchStrategy) {
+    this.searchStrategy = searchStrategy;
+  }
 
-    private void printFoundData(List<Integer> list) {
-        if (list.isEmpty()) {
-            System.out.println("No matching people found.");
-            return;
-        }
-
-        System.out.println(list.size() + " persons found:");
-        list.forEach(idx -> System.out.println(this.personDB.getPersonList().get(idx)));
-    }
+  public void search(String query) {
+    searchStrategy.search(query, this.personDB);
+  }
 
 }
