@@ -1,20 +1,35 @@
 package readability;
 
-import java.util.Scanner;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import static readability.TextAnalyzer.*;
 
 public class Main {
   public static void main(String[] args) {
-    Scanner scanner = new Scanner(System.in);
 
-    // Split text by following punctuations: ! . ?
-    String[] sentences = scanner.nextLine().split("[!.?]");
+    if (args.length < 1) {
+      System.out.println("No text file to read... exiting");
+      return;
+    }
 
-    // Sum total of words in each sentence
-    int totalWords = String.join(" ", sentences)
-            .split("\\s+")
-            .length;
+    String text = "";
 
-    System.out.println(totalWords * 1.0 / sentences.length > 10.0 ? "HARD" : "EASY");
+    try {
+      text = Files.readString(Paths.get(args[0]));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    System.out.println("The text is: \n" + text + "\n");
+    System.out.println("Words: " + countWords(text));
+    System.out.println("Sentences: " + countSentences(text));
+    System.out.println("Characters: " + countCharacters(text));
+
+    double ariScore = ARIScore(text);
+    System.out.printf("The score is: %.2f%n", ariScore);
+    System.out.println("This text should be understood by " + comprehensionAge(ariScore) + " year olds");
 
   }
 }
